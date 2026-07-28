@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<title>For Sri 💕</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1:#ffe3ec;
+    --bg-2:#ffc2d6;
+    --bg-3:#ffabc6;
+    --pink-deep:#ff5f96;
+    --pink-mid:#ff8fb3;
+    --pink-pale:#ffd7e4;
+    --text-dark:#6b2745;
+    --text-soft:#a24a6d;
+    --shadow:rgba(255,95,150,0.32);
+  }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+  html, body{
+    height:100%;
+    margin:0;
+    overflow:hidden;
+    overscroll-behavior:none;
+  }
+
+  body{
+    height:100vh;
+    height:100dvh;
+    width:100vw;
+    font-family:'Poppins', sans-serif;
+    background:
+      radial-gradient(circle at 20% 12%, #fff3f7, transparent 55%),
+      radial-gradient(circle at 85% 90%, #ffc9dc, transparent 50%),
+      linear-gradient(165deg, var(--bg-1), var(--bg-2) 55%, var(--bg-3));
+    position:relative;
+    touch-action:manipulation;
+  }
+
+  /* ---------- floating ambient background ---------- */
+  #floatingBg{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:0;
+  }
+  .floaty{
+    position:absolute;
+    bottom:-10vh;
+    opacity:0;
+    will-change:transform, opacity;
+    animation-name:floatUp;
+    animation-timing-function:ease-in;
+    animation-iteration-count:infinite;
+    filter:drop-shadow(0 4px 6px rgba(107,39,69,0.08));
+  }
+  @keyframes floatUp{
+    0%{ transform:translateY(0) rotate(0deg); opacity:0; }
+    8%{ opacity:.85; }
+    92%{ opacity:.85; }
+    100%{ transform:translateY(-118vh) rotate(30deg); opacity:0; }
+  }
+
+  /* ---------- phone screen ---------- */
+  .screen{
+    position:relative;
+    z-index:2;
+    height:100vh;
+    height:100dvh;
+    max-width:480px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:
+      calc(env(safe-area-inset-top, 0px) + 22px)
+      20px
+      calc(env(safe-area-inset-bottom, 0px) + 22px);
+  }
+
+  .eyebrow{
+    font-family:'Poppins', sans-serif;
+    font-size:.7rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--pink-deep);
+    background:rgba(255,255,255,0.65);
+    backdrop-filter:blur(8px);
+    padding:7px 16px;
+    border-radius:999px;
+    font-weight:600;
+    flex-shrink:0;
+  }
+
+  .view-stack{
+    width:100%;
+    flex:1;
+    display:flex;
+    min-height:0;
+  }
+
+  .view{
+    display:none;
+    width:100%;
+    flex-direction:column;
+    align-items:center;
+    animation:popIn .45s cubic-bezier(.34,1.56,.64,1);
+  }
+  .view.active{ display:flex; }
+
+  @keyframes popIn{
+    from{ opacity:0; transform:scale(.9) translateY(8px); }
+    to{ opacity:1; transform:scale(1) translateY(0); }
+  }
+
+  /* message bubble for the question views */
+  .msg-panel{
+    background:rgba(255,255,255,0.62);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-radius:28px;
+    padding:26px 22px;
+    box-shadow:0 20px 45px -22px var(--shadow), 0 0 0 1px rgba(255,255,255,.55) inset;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    margin-top:6vh;
+    flex-shrink:0;
+  }
+
+  .icon-big{
+    font-size:3rem;
+    line-height:1;
+    animation:heartbeat 2.6s ease-in-out infinite;
+  }
+  @keyframes heartbeat{
+    0%,100%{ transform:scale(1); }
+    15%{ transform:scale(1.12); }
+    30%{ transform:scale(1); }
+    45%{ transform:scale(1.08); }
+    60%{ transform:scale(1); }
+  }
+
+  h1, h2{
+    font-family:'Baloo 2', sans-serif;
+    color:var(--text-dark);
+    margin:0;
+    font-weight:700;
+  }
+  .view h1{ font-size:clamp(1.6rem, 7vw, 2rem); line-height:1.28; }
+  .view h2{ font-size:clamp(1.2rem, 5.6vw, 1.45rem); line-height:1.38; font-weight:600; }
+
+  .sub{
+    font-family:'Poppins', sans-serif;
+    color:var(--text-soft);
+    font-size:1rem;
+    line-height:1.55;
+    margin:0;
+  }
+
+  /* ---------- roaming zone for buttons ---------- */
+  .btn-row{
+    position:relative;
+    width:100%;
+    flex:1;
+    min-height:200px;
+    margin-top:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+  }
+
+  .btn{
+    border:none;
+    cursor:pointer;
+    font-family:'Poppins', sans-serif;
+    font-weight:600;
+    font-size:1.02rem;
+    padding:16px 32px;
+    min-height:52px;
+    border-radius:999px;
+    transition:left .16s ease, top .16s ease, transform .15s ease, box-shadow .15s ease;
+    user-select:none;
+  }
+
+  .btn-yes{
+    background:linear-gradient(135deg, var(--pink-deep), var(--pink-mid));
+    color:#fff;
+    box-shadow:0 12px 26px -10px rgba(255,80,140,.65);
+  }
+  .btn-yes:active{ transform:scale(.95); }
+
+  .btn-no{
+    background:#fff;
+    color:var(--pink-deep);
+    border:2px solid var(--pink-pale);
+    z-index:3;
+  }
+  .btn-no.roaming{ position:absolute; }
+
+  /* ---------- celebration interstitials ---------- */
+  .celebrate{ justify-content:center; flex:1; }
+  .celebrate .icon-big{ font-size:4rem; }
+  .celebrate h1{
+    font-size:clamp(2.1rem, 11vw, 2.8rem);
+    animation:pop .5s cubic-bezier(.34,1.8,.64,1);
+    margin-top:6px;
+  }
+  @keyframes pop{
+    0%{ transform:scale(.4) rotate(-8deg); opacity:0; }
+    60%{ transform:scale(1.12) rotate(3deg); opacity:1; }
+    100%{ transform:scale(1) rotate(0deg); }
+  }
+
+  /* ---------- final view ---------- */
+  .final{ justify-content:center; flex:1; }
+  .final .msg-panel{ margin-top:0; gap:8px; }
+  .final .byee{
+    font-family:'Baloo 2', sans-serif;
+    color:var(--pink-deep);
+    font-size:1.4rem;
+    margin-top:4px;
+  }
+
+  .replay{
+    margin-top:16px;
+    font-family:'Poppins', sans-serif;
+    font-size:.78rem;
+    color:var(--text-soft);
+    background:none;
+    border:none;
+    cursor:pointer;
+    opacity:.65;
+    text-decoration:underline;
+    padding:6px;
+  }
+  .replay:hover, .replay:active{ opacity:1; }
+
+  .heart-pop{
+    position:fixed;
+    z-index:50;
+    pointer-events:none;
+    font-size:1.4rem;
+    animation:heartPop 1s ease-out forwards;
+  }
+  @keyframes heartPop{
+    0%{ transform:translate(0,0) scale(.6); opacity:1; }
+    100%{ transform:translate(var(--dx), -110px) scale(1.1); opacity:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .floaty, .icon-big, .view, .celebrate h1{ animation:none !important; }
+  }
+
+  @media (max-height:640px){
+    .msg-panel{ margin-top:3vh; padding:20px 18px; }
+    .icon-big{ font-size:2.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="floatingBg"></div>
+
+<div class="screen">
+  <div class="eyebrow">🧸 a little note for sri</div>
+
+  <div class="view-stack">
+
+    <!-- View 1 -->
+    <div class="view active" id="view1">
+      <div class="msg-panel">
+        <div class="icon-big">🧸</div>
+        <h1>Heyy Sri!</h1>
+        <p class="sub">Are you free on <strong>Aug 1st</strong>?? 🫣</p>
+      </div>
+      <div class="btn-row" id="row1">
+        <button class="btn btn-yes" id="yes1">Yes 😊</button>
+        <button class="btn btn-no" id="no1" tabindex="-1">No</button>
+      </div>
+    </div>
+
+    <!-- Interstitial: Yay -->
+    <div class="view celebrate" id="yay">
+      <div class="icon-big">🎉</div>
+      <h1>Yayyy!! 🥳</h1>
+    </div>
+
+    <!-- View 2 -->
+    <div class="view" id="view2">
+      <div class="msg-panel">
+        <div class="icon-big">🐻</div>
+        <h2>Since you're free, shall we go out to watch a movie or eat?? 🎬🍔</h2>
+      </div>
+      <div class="btn-row" id="row2">
+        <button class="btn btn-yes" id="yes2">Yes 😍</button>
+        <button class="btn btn-no" id="no2" tabindex="-1">No</button>
+      </div>
+    </div>
+
+    <!-- Interstitial: Lessgoo -->
+    <div class="view celebrate" id="lessgoo">
+      <div class="icon-big">🚀</div>
+      <h1>Lessgoo!! 🎉</h1>
+    </div>
+
+    <!-- Final -->
+    <div class="view final" id="finalView">
+      <div class="msg-panel">
+        <div class="icon-big">🧸💗</div>
+        <h1>Then it's a date!!</h1>
+        <p class="sub">I will pick you up... love you</p>
+        <p class="byee">byeee ❤️</p>
+      </div>
+      <button class="replay" id="replayBtn">🔁 watch this again</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ---------- floating ambient emoji background ----------
+  const bg = document.getElementById('floatingBg');
+  const emojis = ['🧸','💗','🌸','💕','🐻','✨'];
+  const count = Math.min(14, Math.max(8, Math.round(window.innerWidth / 34)));
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'floaty';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = (Math.random() * 100) + 'vw';
+    el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+    const duration = 9 + Math.random() * 10;
+    el.style.animationDuration = duration + 's';
+    el.style.animationDelay = (-Math.random() * duration) + 's';
+    bg.appendChild(el);
+  }
+
+  // ---------- view switching ----------
+  function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // ---------- heart burst on yes ----------
+  function heartBurst(x, y) {
+    const bursts = ['❤️','💕','💗','✨'];
+    for (let i = 0; i < 7; i++) {
+      const h = document.createElement('div');
+      h.className = 'heart-pop';
+      h.textContent = bursts[Math.floor(Math.random() * bursts.length)];
+      h.style.left = (x + (Math.random() * 60 - 30)) + 'px';
+      h.style.top = y + 'px';
+      h.style.setProperty('--dx', (Math.random() * 80 - 40) + 'px');
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 1000);
+    }
+  }
+
+  // ---------- evasive "No" button ----------
+  const noPhrases = ["No", "Nuh-uh 😅", "Nope!", "Try again 😏", "Can't catch me!", "Hehe missed", "Not today 🙈", "Almost! 😝"];
+
+  function setupEvasive(row, btn) {
+    let phraseIdx = 0;
+    let cooling = false;
+
+    function dodge() {
+      if (cooling) return;
+      cooling = true;
+      const rowRect = row.getBoundingClientRect();
+      const btnRect = btn.getBoundingClientRect();
+      const pad = 6;
+      const maxX = Math.max(pad, rowRect.width - btnRect.width - pad);
+      const maxY = Math.max(pad, rowRect.height - btnRect.height - pad);
+      const x = pad + Math.random() * (maxX - pad);
+      const y = pad + Math.random() * (maxY - pad);
+      btn.classList.add('roaming');
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+      btn.style.transform = `rotate(${(Math.random() * 16 - 8).toFixed(1)}deg)`;
+      phraseIdx = (phraseIdx + 1) % noPhrases.length;
+      btn.textContent = noPhrases[phraseIdx];
+      setTimeout(() => { cooling = false; }, 140);
+    }
+
+    function isRowActive() {
+      const view = row.closest('.view');
+      return view && view.classList.contains('active');
+    }
+
+    // desktop: cursor approaching
+    document.addEventListener('mousemove', (e) => {
+      if (!isRowActive()) return;
+      const r = btn.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+      if (dist < 95) dodge();
+    });
+
+    // mobile: finger sliding near it
+    document.addEventListener('touchmove', (e) => {
+      if (!isRowActive() || !e.touches[0]) return;
+      const t = e.touches[0];
+      const r = btn.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const dist = Math.hypot(t.clientX - cx, t.clientY - cy);
+      if (dist < 80) dodge();
+    }, { passive: true });
+
+    // mobile: direct tap attempt — dodge instead of registering
+    btn.addEventListener('touchstart', (e) => { e.preventDefault(); dodge(); }, { passive: false });
+    btn.addEventListener('pointerdown', (e) => { e.preventDefault(); dodge(); });
+    btn.addEventListener('click', (e) => e.preventDefault());
+  }
+
+  setupEvasive(document.getElementById('row1'), document.getElementById('no1'));
+  setupEvasive(document.getElementById('row2'), document.getElementById('no2'));
+
+  // ---------- flow ----------
+  document.getElementById('yes1').addEventListener('click', (e) => {
+    heartBurst(e.clientX, e.clientY);
+    showView('yay');
+    setTimeout(() => showView('view2'), 1500);
+  });
+
+  document.getElementById('yes2').addEventListener('click', (e) => {
+    heartBurst(e.clientX, e.clientY);
+    showView('lessgoo');
+    setTimeout(() => showView('finalView'), 1500);
+  });
+
+  document.getElementById('replayBtn').addEventListener('click', () => {
+    showView('view1');
+  });
+</script>
+
+</body>
+</html>
